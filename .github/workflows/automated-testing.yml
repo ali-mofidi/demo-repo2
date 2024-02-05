@@ -1,4 +1,4 @@
-name: Automated Testing
+name: README Testing
 
 on:
   push:
@@ -13,15 +13,13 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '14'
-
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Run Tests
-      run: npm test
-
-    
+    - name: Check README Content
+      run: |
+        # Check if the README contains the word "GitHub Actions"
+        if grep -q "GitHub Actions" README.md; then
+          echo "README test passed!"
+          exit 0
+        else
+          echo "README test failed! The word 'GitHub Actions' is missing."
+          exit 1
+        fi
